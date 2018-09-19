@@ -8,6 +8,8 @@ flask = "*"
 requests = "*"
 python-memcached = "*"
 gunicorn = "*"
+flask-caching = "*"
+pylibmc = "*"
 
 [dev-packages]
 
