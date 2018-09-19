@@ -8,7 +8,8 @@ import datetime
 app = Flask(__name__)
 cache = Cache()
 
-# Cache configuration from https://devcenter.heroku.com/articles/memcachier#flask
+### Cache config from https://devcenter.heroku.com/articles/memcachier#flask
+
 cache_servers = os.environ.get('MEMCACHIER_SERVERS')
 if cache_servers == None:
     # Fall back to simple in memory cache (development)
@@ -36,10 +37,15 @@ else:
                     'remove_failed': 1,
                     'retry_timeout': 2,
                     'dead_timeout': 30}}})
+
+### End cache config
+
 ROOT_API = 'https://tuftsdiningdata.herokuapp.com/menus/'
 
 # At most, look two weeks in advance
 MAX_DAYS = 14
+
+CACHE_TIME = 60 * 60 * 24 * 7
 
 LOCATIONS = ['dewick', 'carm', 'hodgdon']
 
@@ -76,7 +82,7 @@ def find_food(keyword):
                 menu = cached_menu
             else:
                 menu = requests.get(ROOT_API + menu_identifier).json()
-                cache.set(location + '/' + date_part, menu, timeout=(60 * 60 * 24))
+                cache.set(location + '/' + date_part, menu, timeout=CACHE_TIME))
 
             # Search the menu
             matches = find_keyword(keyword, menu)
