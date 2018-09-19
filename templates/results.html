@@ -1,0 +1,28 @@
+<!doctype html>
+
+<title>Results for {{ keyword }}</title>
+
+<body>
+    <div>
+        <a href="/">Back to home!</a>
+    </div>
+    <div>
+        {% if results %}
+        <ul>
+            {% for dining_hall, hall_entries in results.items() %}
+
+                {% for match in hall_entries.matches %}
+
+                        <li>You can eat {{ match }} on {{ hall_entries.date }} in {{ dining_hall }}</li>
+
+                {% endfor %}
+            {% endfor %}
+        </ul>
+        {% else %}
+        <h1>You won't be seeing that for the next two weeks :/</h1>
+        {% endif %}
+    </div>
+
+</body>
+
+
