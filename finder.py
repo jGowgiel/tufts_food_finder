@@ -94,7 +94,7 @@ def find_food(keyword):
 
 def find_keyword(keyword, menu):
     found_foods = []
-    for meal_period in menu['data'].values():
-        for food_group in meal_period.values():
-            found_foods += [match for match in food_group if keyword.lower() in match.lower()]
+    for meal_period in menu['data']:
+        for food_group in menu['data'][meal_period].values():
+            found_foods += [(match + ' during ' + meal_period) for match in food_group if keyword.lower() in match.lower()]
     return found_foods
