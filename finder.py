@@ -59,7 +59,6 @@ def index():
     if search_term:
 
         results = find_food(search_term)
-        print(results)
         return render_template('results.html', keyword=search_term, results=results)
 
     else:
@@ -76,13 +75,11 @@ def find_food(keyword):
 
         for location in LOCATIONS:
             menu_identifier = location + '/' + date_part
-            cached_menu = cache.get(menu_identifier)
+            menu = cache.get(menu_identifier)
 
-            if cached_menu:
-                menu = cached_menu
-            else:
+            if not menu:
                 menu = requests.get(ROOT_API + menu_identifier).json()
-                cache.set(location + '/' + date_part, menu, timeout=CACHE_TIME))
+                cache.set(location + '/' + date_part, menu, timeout=CACHE_TIME)
 
             # Search the menu
             matches = find_keyword(keyword, menu)
