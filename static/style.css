@@ -1,8 +1,13 @@
-div {
-    font-size: 24px;
-    text-align: center;
+
+.entry_match:nth-child(2) {
+	font-size: 1.2em;
 }
 
-h1 {
-    text-align: center;
+#background_layer {
+	height: 90vh;
+	background-color: white;
+}
+
+#inner_layer {
+	height: 100%;
 }

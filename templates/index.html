@@ -1,20 +1,34 @@
-<!doctype html>
+{% extends 'base.html' %}
 
-<title>FoodFinder</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-<body>
-    <div>
-        Search for your favorite food
+{% block title %}Tufts Food Finder{% endblock %}
+
+{% block content %}
+    
+    <div class="grid-container fluid" id="background_layer">
+        <div class="grid-y grid-padding-y align-center-middle" id="inner_layer">
+            <div class="cell text-center">
+                <div class="grid-x grid-padding-x align-center">
+                    <div class="cell medium-6">
+                        <h3>Tufts Food Finder</h3>
+                        <h5>Search for your favorite food, and see which Tufts Dining hall it'll be at next
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="cell">
+                <div class="grid-x grid-padding-x align-center">
+                    <div class="cell">
+                        <form>
+                            <div class="input-group">
+                                <input class="input-group-field" type="text" name="search">
+                                <div class="input-group-button">
+                                    <input type="submit" class="button" value="Submit">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        Find out where it will be next
-    </div>
-    <br>
-    <div>
-        <form>
-            What food should we find?<br>
-            <input type="text" name="search">
-            <input type="submit" value="Submit">
-        </form>
-    </div>
-</body>
+{% endblock %}

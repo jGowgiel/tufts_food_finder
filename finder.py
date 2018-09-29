@@ -43,7 +43,7 @@ else:
 ROOT_API = 'https://tuftsdiningdata.herokuapp.com/menus/'
 
 # At most, look two weeks in advance
-MAX_DAYS = 14
+MAX_DAYS = 7
 
 CACHE_TIME = 60 * 60 * 24 * 7
 
@@ -64,6 +64,10 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/about')
+def about():
+
+    return render_template('about.html')
 
 def find_food(keyword):
 
@@ -85,7 +89,7 @@ def find_food(keyword):
             matches = find_keyword(keyword, menu)
 
             if matches:
-                results[location] = {
+                results[location.capitalize()] = {
                     'matches': find_keyword(keyword, menu),
                     'date': date.strftime("%A, %B %d")
                 }
@@ -98,3 +102,12 @@ def find_keyword(keyword, menu):
         for food_group in menu['data'][meal_period].values():
             found_foods += [(match + ' during ' + meal_period) for match in food_group if keyword.lower() in match.lower()]
     return found_foods
+
+
+
+
+
+
+
+
+
