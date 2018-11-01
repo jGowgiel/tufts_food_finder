@@ -4,29 +4,41 @@
 
 {% block content %}
     <a class="button large" href="/">Search again</a>
-
+    <div style="margin-left: 50px">
+        <h4>Viewing results for: {{ keyword }}</h4>
+    </div>
     <div class="grid-container">
         <div class="grid-x grid-padding-x align-center">
         {% if results %}
-        
-
+            
             {% for dining_hall, hall_entries in results.items() %}
 
                 <div class="cell large-3">
                     <h3>{{ dining_hall }}</h3>
-                {% for match in hall_entries.matches %}
+                    {% for match in hall_entries.matches %}
                     <div class="grid-y grid-padding-y align-center entry_match">
                         <div class="cell">
-                            {{ match }} on {{ hall_entries.date }}
+                            <div class="card">
+                                <div class="card-divider" style="background-color: #C9DFFF">{{ match }}</div>
+                                <div class="card-section">
+                                    <div class="grid-x">
+                                        <div class="cell small-1" style="margin-right: 10px">
+                                            <img src="{{ url_for('static',filename='calendar.png') }}" style="height: 20px; width: 20px" />
+                                        </div>
+                                        <div class="cell auto">
+                                            {{ hall_entries.date }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
             {% endfor %}
 
         {% else %}
-        <h4>Couldn't find {{ keyword }} in the next week :/</h4>
+        <h4>Couldn't find {{ keyword }} in the next week ¯\_(ツ)_/¯</h4>
         {% endif %}
         </div>
 

@@ -4,6 +4,7 @@ from flask_caching import Cache
 import os
 import requests
 import datetime
+import html
 
 app = Flask(__name__)
 cache = Cache()
@@ -42,8 +43,8 @@ else:
 
 ROOT_API = 'https://tuftsdiningdata.herokuapp.com/menus/'
 
-# At most, look two weeks in advance
-MAX_DAYS = 7
+# At most, look one week in advance
+MAX_DAYS = 5
 
 CACHE_TIME = 60 * 60 * 24 * 7
 
@@ -88,6 +89,7 @@ def find_food(keyword):
             # Search the menu
             matches = find_keyword(keyword, menu)
 
+
             if matches:
                 results[location.capitalize()] = {
                     'matches': find_keyword(keyword, menu),
@@ -100,7 +102,7 @@ def find_keyword(keyword, menu):
     found_foods = []
     for meal_period in menu['data']:
         for food_group in menu['data'][meal_period].values():
-            found_foods += [(match + ' during ' + meal_period) for match in food_group if keyword.lower() in match.lower()]
+            found_foods += [(html.unescape(match + ' during ' + meal_period.lower())) for match in food_group if keyword.lower() in match.lower()]
     return found_foods
 
 
